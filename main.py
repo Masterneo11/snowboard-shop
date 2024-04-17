@@ -1,22 +1,27 @@
 import json
 from fastapi import FastAPI
 
-from models import Snowboard 
+from models import Snowboard, Brand
 
 app = FastAPI()
 
 with open("snowboards.json", "r") as f:
     snowboard_list = json.load(f)
 
-snowboards = []
+snowboards: list = []
 for i in snowboard_list:
     snowboard = Snowboard(**i)
     snowboards.append(snowboard)
 
+
 @app.get("/snowboards")
 async def get_snowboards() -> list[Snowboard]:
-    return snowboards
-    
+    return snowboards 
+
+@app.get("/brands")
+async def get_brands() -> list[Brand]:
+    return Brand
+
 @app.post("/snowboards")
 async def create_snowboard(snowboard: Snowboard) -> None:
     snowboards.append(snowboard)
