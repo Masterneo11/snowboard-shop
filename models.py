@@ -1,7 +1,7 @@
 
-
 from pydantic import BaseModel
 from enum import Enum
+
 
 class Snowboard(BaseModel):
 
@@ -9,10 +9,9 @@ class Snowboard(BaseModel):
     length: int
     color: str
     has_bindings: bool
-    
+    brand: "Brand"
 
-
-class Brand(Enum):
+class Brand(str,Enum):
 
      NITRO = "Nitro"
      SALOMON = "Saloman"
