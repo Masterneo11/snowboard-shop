@@ -28,10 +28,16 @@ async def create_snowboard(snowboard: Snowboard) -> None:
 
 @app.put("/snowboards/{snow_id}")
 async def update_snowboard_info(snow_id: int, updated_snowboard: Snowboard) -> None:
+    index = int
+    found = False
     for i, snowboard in enumerate(snowboards):
         if snowboard.id == snow_id:
-            snowboards[i] = updated_snowboard
-            return
+            found = True
+            index = i
+    if found:
+        snowboards[index] = updated_snowboard
+    else:
+        snowboards.append(updated_snowboard)
 
 @app.delete("/snowboards/{snowboard_id}")
 async def delete_snowboard_info(snowboard_id: int) -> None:
